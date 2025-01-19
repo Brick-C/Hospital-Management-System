@@ -25,7 +25,7 @@ const Patients = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/patients?fields=name,email,phone,gender,physician,appointment"
+          "http://localhost:5000/patients?fields=id,name,email,phone,gender,physician,appointment"
         );
         console.log("Patients:", res.data);
 

@@ -54,6 +54,20 @@ app.post("/infodetails", (req, res) => {
 });
 
 app.get("/patients", (req, res) => {
+  const q = "SELECT * FROM sys.patients";
+  db1.query(q, (err, result) => {
+    if (err) {
+      console.error("Error fetching patients:", err);
+      return res
+        .status(500)
+        .json({ error: "Error fetching patients", details: err });
+    }
+    res.json(result);
+    console.log("Patients:", result);
+  });
+});
+
+app.get("/patients", (req, res) => {
   const fields = req.query.fields; // Extract 'fields' from the query string
   let selectedFields = "*"; // Default: select all fields
 
