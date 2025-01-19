@@ -1,0 +1,82 @@
+.DoctorManage {
+  display: flex;
+
+  background-color: rgb(0, 0, 0);
+  color: white;
+  box-sizing: border-box;
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    margin-top: 11%;
+    margin-left: 8%;
+
+    /* TABLE */
+    .modern-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .modern-table thead tr {
+      background-color: #f9fafb;
+      color: #374151;
+      text-align: left;
+    }
+
+    .modern-table th,
+    .modern-table td {
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      border-bottom: 1px solid #000000;
+      white-space: nowrap;
+    }
+
+    .modern-table tbody tr td .status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3.8px;
+      background-color: #d3d3d3;
+      color: #ffffff;
+      border: none;
+      padding: 3px 16px;
+      border-radius: 20px;
+      background: rgb(187, 82, 98);
+      background: linear-gradient(
+        90deg,
+        rgba(187, 82, 98, 1) 0%,
+        rgba(150, 25, 25, 1) 49%,
+        rgba(143, 65, 65, 1) 100%
+      );
+      font-weight: 570;
+      .icon {
+        margin-top: 6px;
+      }
+    }
+
+    .modern-table tbody tr td button {
+      background-color: #000000;
+      margin-right: 8px;
+      color: white;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #4e4e4e;
+      }
+    }
+
+    .modern-table tbody tr:hover {
+      background-color: #f5f5f5; /* Subtle hover effect */
+      transition: background-color 0.3s ease;
+    }
+
+    .modern-table tr:last-of-type td {
+      border-bottom: none;
+    }
+  }
+}

@@ -1,0 +1,54 @@
+.modal {
+  margin-top: 19px;
+
+  .modal-header {
+    background-color: #575757;
+    color: white;
+  }
+
+  .modal-form {
+    background-color: #575757;
+    color: white;
+
+    .formControl {
+      background-color: #9a9a9a;
+      color: white;
+
+      &:focus {
+        background-color: #ffffff;
+        color: rgb(0, 0, 0);
+      }
+    }
+  }
+
+  .modal-footer {
+    background-color: #575757;
+    color: white;
+
+    .btnClose {
+      background-color: #000000;
+      color: white;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #a42e2e;
+      }
+    }
+
+    .btnSave {
+      background-color: #000000;
+      color: white;
+      border: none;
+      padding: 6px 15px;
+      border-radius: 5px;
+      transition: 0.3s ease-in-out;
+
+      &:hover {
+        background-color: #307dce;
+      }
+    }
+  }
+}

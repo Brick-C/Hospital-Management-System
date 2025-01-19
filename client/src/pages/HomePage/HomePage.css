@@ -1,0 +1,114 @@
+.HomePage {
+  display: flex;
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  box-sizing: border-box;
+  .logo {
+    display: flex;
+    margin-top: 22px;
+    margin-left: 32px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12.5%;
+
+    h2 {
+      font-size: 29px;
+    }
+
+    p {
+      font-size: 16px;
+    }
+
+    .stat {
+      display: flex;
+      flex-wrap: wrap;
+      /* justify-content: center; */
+      gap: 2.2rem;
+      margin-top: 2rem;
+      margin-left: 1rem;
+
+      .stat-card {
+        background-color: rgb(148, 144, 138);
+        width: 18rem;
+        height: 7rem;
+        border-radius: 11px;
+        padding: 1rem;
+        background-color: rgb(0, 0, 0);
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 1) 0%,
+          rgba(18, 17, 17, 1) 68%,
+          rgba(96, 96, 96, 1) 100%,
+          rgba(0, 212, 255, 1) 100%
+        );
+        transition: border 1s ease-in;
+        &:hover {
+          cursor: pointer;
+
+          border: 1px solid rgb(147, 59, 59);
+        }
+        .stat-text {
+          .stat-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.1rem;
+
+            .icon1 {
+              margin-top: 7px;
+              font-size: 1.9rem;
+              color: yellow;
+            }
+
+            .icon2 {
+              margin-top: 7px;
+              font-size: 1.9rem;
+              color: rgb(9, 113, 217);
+            }
+
+            .icon3 {
+              margin-top: 7px;
+              font-size: 1.9rem;
+              color: rgb(249, 8, 0);
+            }
+            .number {
+              font-size: 1.7rem;
+            }
+          }
+
+          p {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+    .about-area {
+      display: flex;
+      flex-direction: column;
+      margin-top: 15%;
+      margin-bottom: 9%;
+      h2 {
+        font-size: 29px;
+      }
+
+      .members {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-top: 10px;
+        margin-left: 4px;
+        p {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

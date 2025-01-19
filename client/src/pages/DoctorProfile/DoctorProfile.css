@@ -1,0 +1,104 @@
+.DoctorProfile {
+  display: flex;
+  min-height: 100vh;
+  background-color: rgb(0, 0, 0);
+  color: white;
+  box-sizing: border-box;
+
+  .logo {
+    display: flex;
+    margin-top: 22px;
+    margin-left: 32px;
+    img {
+      width: 100px;
+      height: 100px;
+    }
+  }
+
+  .text-area {
+    display: flex;
+    flex-direction: column;
+    margin-top: 11%;
+
+    h3 {
+      font-size: 25px;
+      margin-bottom: 16px;
+      margin-left: 26px;
+    }
+
+    .btn {
+      display: flex;
+      justify-content: center;
+      margin-left: 89%;
+      margin-bottom: 2%;
+      background-color: #030303;
+      color: white;
+      border: 1px solid #7893b3;
+      width: 80px;
+
+      &:hover {
+        background-color: #4e4e4e;
+      }
+    }
+
+    /* TABLE */
+    .modern-table {
+      width: 100%;
+      border-collapse: collapse;
+      border-radius: 0.5rem;
+      overflow: hidden;
+    }
+
+    .modern-table thead tr {
+      background-color: #f9fafb;
+      color: #374151;
+      text-align: left;
+    }
+
+    .modern-table th,
+    .modern-table td {
+      padding: 1rem 1.25rem;
+      font-size: 0.875rem;
+      line-height: 1.5rem;
+      border-bottom: 1px solid #000000;
+      white-space: nowrap;
+
+      .delete {
+        color: red;
+        cursor: pointer;
+      }
+    }
+
+    .modern-table tbody tr:hover {
+      background-color: #f5f5f5; /* Subtle hover effect */
+      transition: background-color 0.3s ease;
+    }
+
+    .modern-table tr:last-of-type td {
+      border-bottom: none;
+    }
+
+    .pagination {
+      display: flex;
+      justify-content: flex-end;
+
+      .page-item {
+        margin-right: 5px;
+        cursor: pointer;
+
+        .page-link {
+          color: #000000;
+          font-size: 15px;
+          background-color: #ffffff;
+          border: 1px solid #000000;
+          padding: 0.375rem 0.75rem;
+          transition: background-color 0.3s ease;
+          &:hover {
+            background-color: #626363;
+            color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+}
