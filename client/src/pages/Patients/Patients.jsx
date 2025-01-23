@@ -48,7 +48,6 @@ const Patients = () => {
 
       <div className="text-area">
         <h3>All Patients</h3>
-        <button className="btn">Add</button>
 
         <Table
           striped

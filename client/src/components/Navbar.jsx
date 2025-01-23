@@ -3,15 +3,20 @@ import "./navbar.css";
 import { FaUserDoctor } from "react-icons/fa6";
 import { MdOutlineSick } from "react-icons/md";
 import { FiHome } from "react-icons/fi";
-import { GrUserWorker } from "react-icons/gr";
-import { SlCalender } from "react-icons/sl";
-import { GiReceiveMoney } from "react-icons/gi";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 import { IoMdExit } from "react-icons/io";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+
+  const handleLogOut = () => {
+    localStorage.removeItem("adminToken");
+    alert("You have been logged out.");
+    navigate("/");
+  };
+
   const renderHome = (props) => (
     <Tooltip id="button-tooltip" {...props}>
       Home
@@ -79,7 +84,7 @@ const Navbar = () => {
               delay={{ show: 250, hide: 250 }}
               overlay={renderLogOut}
             >
-              <Link to="#">
+              <Link to="/" onClick={handleLogOut}>
                 <IoMdExit />
               </Link>
             </OverlayTrigger>

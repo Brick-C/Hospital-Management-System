@@ -15,6 +15,11 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!data.name || !data.email || !data.phone) {
+      alert("Please fill out all fields before submitting.");
+      return;
+    }
+
     try {
       const res = await axios.post("http://localhost:5000/getstarted", data);
       console.log("From Server:", res.data);
@@ -26,12 +31,19 @@ function App() {
   };
 
   const handleAdminLogin = () => {
+    const username = prompt("Enter Admin Username");
+    const adminUsername = "admin";
     const password = prompt("Enter Admin Password");
     const adminPassword = "admin123";
 
-    if (password === adminPassword) {
+    if (password === adminPassword && username === adminUsername) {
       navigate("/home");
-    } else if (password === null || password === "") {
+    } else if (
+      password === null ||
+      password === "" ||
+      username === null ||
+      username === ""
+    ) {
       alert("Password entry canceled or left empty. Access denied.");
       navigate("/");
     } else {

@@ -36,7 +36,7 @@ const AboutPatient = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "http://localhost:5000/doctors?fields=name,department"
+          "https://ever-care-996472d62217.herokuapp.com/doctors?fields=name,department"
         );
         setPhysicians(res.data);
       } catch (err) {
@@ -50,6 +50,12 @@ const AboutPatient = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    const rawAppointment = e.target.appointment.value;
+    const formattedAppointment = new Date(rawAppointment)
+      .toISOString()
+      .slice(0, 19)
+      .replace("T", " ");
+
     const updatedData = {
       name: e.target.name.value,
       email: e.target.email.value,
@@ -57,12 +63,25 @@ const AboutPatient = () => {
       reason: newData.reason,
       gender: selectedGender,
       physician: selectedPhysician,
-      appointment: e.target.appointment.value,
+      appointment: formattedAppointment,
     };
+
+    if (
+      !updatedData.name ||
+      !updatedData.email ||
+      !updatedData.phone ||
+      !updatedData.reason ||
+      !updatedData.gender ||
+      !updatedData.physician ||
+      !updatedData.appointment
+    ) {
+      alert("Please fill out all fields before submitting the form.");
+      return;
+    }
 
     try {
       const res = await axios.post(
-        "http://localhost:5000/infodetails",
+        "https://ever-care-996472d62217.herokuapp.com/infodetails",
         updatedData
       );
       console.log("Server Response:", res.data);

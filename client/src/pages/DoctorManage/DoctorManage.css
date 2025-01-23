@@ -51,9 +51,6 @@
         rgba(143, 65, 65, 1) 100%
       );
       font-weight: 570;
-      .icon {
-        margin-top: 6px;
-      }
     }
 
     .modern-table tbody tr td button {
@@ -77,6 +74,29 @@
 
     .modern-table tr:last-of-type td {
       border-bottom: none;
+    }
+  }
+
+  .pagination {
+    display: flex;
+    justify-content: flex-end;
+
+    .page-item {
+      margin-right: 5px;
+      cursor: pointer;
+
+      .page-link {
+        color: #000000;
+        font-size: 15px;
+        background-color: #ffffff;
+        border: 1px solid #000000;
+        padding: 0.375rem 0.75rem;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: #626363;
+          color: #ffffff;
+        }
+      }
     }
   }
 }

@@ -10,9 +10,9 @@ const app = express();
 const __dirname = path.resolve();
 dotenv.config();
 
+app.use(cors());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
-app.use(cors());
 
 const PORT = 5000;
 
@@ -41,9 +41,22 @@ app.post("/infodetails", (req, res) => {
   const { name, email, phone, gender, reason, physician, appointment } =
     req.body;
 
+  const formattedAppointment = new Date(appointment)
+    .toISOString()
+    .slice(0, 19)
+    .replace("T", " ");
+
   const q =
     "INSERT INTO `sys`.`patients` (`name`, `email`, `phone`, `gender`, `reason`, `physician`,`appointment`) VALUES (?, ?, ?, ?, ?, ?, ?)";
-  const values = [name, email, phone, gender, reason, physician, appointment];
+  const values = [
+    name,
+    email,
+    phone,
+    gender,
+    reason,
+    physician,
+    formattedAppointment,
+  ];
 
   db1.query(q, values, (err, result) => {
     if (err) {
@@ -55,15 +68,28 @@ app.post("/infodetails", (req, res) => {
 
 app.get("/patients", (req, res) => {
   const q = "SELECT * FROM sys.patients";
-  db1.query(q, (err, result) => {
+
+  db1.query(q, (err, results) => {
     if (err) {
       console.error("Error fetching patients:", err);
       return res
         .status(500)
         .json({ error: "Error fetching patients", details: err });
     }
-    res.json(result);
-    console.log("Patients:", result);
+
+    // Format the appointment date for each patient
+    const formattedResults = results.map((patient) => {
+      if (patient.appointment) {
+        const appointmentDate = new Date(patient.appointment);
+        patient.appointment = appointmentDate
+          .toISOString()
+          .slice(0, 19)
+          .replace("T", "--");
+      }
+      return patient;
+    });
+
+    res.json(formattedResults);
   });
 });
 
@@ -87,22 +113,50 @@ app.get("/patients", (req, res) => {
     res.json(result);
     console.log("Patients:", result);
   });
+
+  const formattedResults = results.map((patient) => {
+    if (patient.appointment) {
+      const appointmentDate = new Date(patient.appointment);
+      patient.appointment = appointmentDate
+        .toISOString()
+        .slice(0, 19)
+        .replace("T", "--");
+    }
+    return patient;
+  });
+
+  res.json(formattedResults);
 });
 
-// app.post("/add", (req, res) => {
-//   const { fName, lName, email, phone, department, photo } = req.body;
-//   db.query(
-//     "INSERT INTO doctor (fName, lName, email, phone, department, photo) VALUES (?,?,?,?,?,?)",
-//     [fName, lName, email, phone, department, photo],
-//     (err, result) => {
-//       if (err) {
-//         console.log(err);
-//       } else {
-//         res.json("Values Inserted");
-//       }
-//     }
-//   );
-// });
+app.patch("/patients/:id/status", (req, res) => {
+  const { id } = req.params;
+  const { status, appointment, reason } = req.body;
+
+  const validStatus = ["pending", "cancelled", "scheduled"];
+  if (!validStatus.includes(status)) {
+    return res.status(400).json({ error: "Invalid status" });
+  }
+
+  const q =
+    "UPDATE sys.patients SET status = ?, appointment = ?, reason = ? WHERE id = ?";
+
+  try {
+    db1.query(q, [status, appointment, reason, id], (err, result) => {
+      if (err) {
+        console.error("Error updating status:", err);
+        return res.status(500).json({
+          error: "Error updating status",
+          details: err,
+        });
+      }
+
+      res.json({ message: "Status updated successfully", result });
+    });
+  } catch (error) {
+    console.error("Error updating status:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+});
 
 app.post("/add-doctor", (req, res) => {
   const { name, email, phone, department, education, experience } = req.body;
@@ -159,16 +213,6 @@ app.get("/doctors", (req, res) => {
     console.log("Doctors:", result);
   });
 });
-
-// app.get("/doctor", (req, res) => {
-//   db.query("SELECT * FROM h2wmccs6vozgspmg.doctor;", (err, result) => {
-//     if (err) {
-//       console.log(err);
-//     }
-//     res.json(result);
-//   });
-// });
-
 app.listen(process.env.PORT || PORT, () => {
   console.log(`Server started on port ${process.env.PORT || PORT}`);
 });
