@@ -5,6 +5,7 @@ import "./DoctorProfile.css";
 import DoctorModal from "../../components/DoctorModal";
 import axios from "axios";
 import Pagination from "react-bootstrap/Pagination";
+import { GoTrash } from "react-icons/go";
 
 const DoctorProfile = () => {
   const [data, setData] = useState([]);
@@ -96,7 +97,9 @@ const DoctorProfile = () => {
                   <td>{doctor.education}</td>
                   <td>{doctor.experience} years</td>
                   <td>
-                    <button className="delete">Delete</button>
+                    <button className="delete">
+                      <GoTrash />
+                    </button>
                   </td>
                 </tr>
               ))

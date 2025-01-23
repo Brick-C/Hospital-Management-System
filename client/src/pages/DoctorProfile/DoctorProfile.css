@@ -64,8 +64,23 @@
       white-space: nowrap;
 
       .delete {
-        color: red;
-        cursor: pointer;
+        display: flex;
+        background-color: transparent;
+        border: none;
+        font-size: 20px;
+        color: #ff4d4f;
+        padding: 7px;
+        border-radius: 50%;
+        transition: all 0.3s ease;
+
+        &:hover {
+          background-color: rgba(255, 77, 79, 0.2);
+          color: #d9363e;
+        }
+
+        &:active {
+          transform: scale(1.65);
+        }
       }
     }
 

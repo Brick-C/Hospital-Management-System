@@ -36,7 +36,7 @@ const AboutPatient = () => {
     const fetchData = async () => {
       try {
         const res = await axios.get(
-          "https://ever-care-996472d62217.herokuapp.com/doctors?fields=name,department"
+          "http://localhost:5000/doctors?fields=name,department"
         );
         setPhysicians(res.data);
       } catch (err) {
@@ -81,7 +81,7 @@ const AboutPatient = () => {
 
     try {
       const res = await axios.post(
-        "https://ever-care-996472d62217.herokuapp.com/infodetails",
+        "http://localhost:5000/infodetails",
         updatedData
       );
       console.log("Server Response:", res.data);

@@ -15,31 +15,31 @@ const HomePage = () => {
     cancelled: 0,
   });
 
+  const fetchAppointments = async () => {
+    try {
+      const res = await axios.get("http://localhost:5000/patients");
+      const appointmentsData = res.data;
+
+      // Calculate statistics
+      const scheduled = appointmentsData.filter(
+        (item) => item.status === "scheduled"
+      ).length;
+      const pending = appointmentsData.filter(
+        (item) => item.status === "pending"
+      ).length;
+      const cancelled = appointmentsData.filter(
+        (item) => item.status === "cancelled"
+      ).length;
+
+      // Update state
+      setAppointments(appointmentsData);
+      setStats({ scheduled, pending, cancelled });
+    } catch (err) {
+      console.error("Error fetching appointments:", err);
+    }
+  };
+
   useEffect(() => {
-    const fetchAppointments = async () => {
-      try {
-        const res = await axios.get("http://localhost:5000/patients");
-        const appointmentsData = res.data;
-
-        // Calculate statistics
-        const scheduled = appointmentsData.filter(
-          (item) => item.status === "scheduled"
-        ).length;
-        const pending = appointmentsData.filter(
-          (item) => item.status === "pending"
-        ).length;
-        const cancelled = appointmentsData.filter(
-          (item) => item.status === "cancelled"
-        ).length;
-
-        // Update state
-        setAppointments(appointmentsData);
-        setStats({ scheduled, pending, cancelled });
-      } catch (err) {
-        console.error("Error fetching appointments:", err);
-      }
-    };
-
     fetchAppointments();
   }, []);
 
@@ -85,7 +85,7 @@ const HomePage = () => {
           </div>
         </div>
 
-        <DoctorManage />
+        <DoctorManage onStatusChange={fetchAppointments} />
 
         <div className="about-area">
           <h3>Created By ✒️</h3>

@@ -128,7 +128,7 @@ app.get("/patients", (req, res) => {
   res.json(formattedResults);
 });
 
-app.patch("/patients/:id/status", (req, res) => {
+app.patch("/patients/:id/status", async (req, res) => {
   const { id } = req.params;
   const { status, appointment, reason } = req.body;
 
@@ -141,17 +141,21 @@ app.patch("/patients/:id/status", (req, res) => {
     "UPDATE sys.patients SET status = ?, appointment = ?, reason = ? WHERE id = ?";
 
   try {
-    db1.query(q, [status, appointment, reason, id], (err, result) => {
-      if (err) {
-        console.error("Error updating status:", err);
-        return res.status(500).json({
-          error: "Error updating status",
-          details: err,
-        });
-      }
+    db1.query(
+      q,
+      [status, appointment, reason || "No reason provided", id],
+      (err, result) => {
+        if (err) {
+          console.error("Error updating status:", err);
+          return res.status(500).json({
+            error: "Error updating status",
+            details: err,
+          });
+        }
 
-      res.json({ message: "Status updated successfully", result });
-    });
+        res.json({ message: "Status updated successfully", result });
+      }
+    );
   } catch (error) {
     console.error("Error updating status:", error);
     res.status(500).json({ error: "Internal server error" });
@@ -213,6 +217,7 @@ app.get("/doctors", (req, res) => {
     console.log("Doctors:", result);
   });
 });
+
 app.listen(process.env.PORT || PORT, () => {
   console.log(`Server started on port ${process.env.PORT || PORT}`);
 });

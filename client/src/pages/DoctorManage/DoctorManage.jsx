@@ -6,7 +6,7 @@ import Pagination from "react-bootstrap/Pagination";
 import axios from "axios";
 import ViewAppoint from "../../components/ViewAppoint";
 
-const DoctorManage = () => {
+const DoctorManage = ({ onStatusChange }) => {
   const [data, setData] = useState([]);
   const [isPatientAdded, setIsPatientAdded] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -46,7 +46,11 @@ const DoctorManage = () => {
     try {
       const res = await axios.patch(
         `http://localhost:5000/patients/${appointmentId}/status`,
-        { status: "cancelled", appointment: currentAppointment, reason: null }
+        {
+          status: "cancelled",
+          appointment: currentAppointment,
+          reason: "Cancelled by user",
+        }
       );
       console.log(res.data);
 
@@ -55,6 +59,10 @@ const DoctorManage = () => {
         item.id === appointmentId ? { ...item, status: "cancelled" } : item
       );
       setData(updatedData);
+
+      if (onStatusChange) {
+        onStatusChange();
+      }
     } catch (err) {
       console.error("Error updating status:", err);
     }
